@@ -1,0 +1,8 @@
+C:\Users\Utilizador\Desktop\aulas\Linguagem web 1\Projeto_final\Projeto_final\bin\Debug\Projeto_final.exe.config
+C:\Users\Utilizador\Desktop\aulas\Linguagem web 1\Projeto_final\Projeto_final\bin\Debug\Projeto_final.exe
+C:\Users\Utilizador\Desktop\aulas\Linguagem web 1\Projeto_final\Projeto_final\bin\Debug\Projeto_final.pdb
+C:\Users\Utilizador\Desktop\aulas\Linguagem web 1\Projeto_final\Projeto_final\obj\Debug\Projeto_final.csproj.AssemblyReference.cache
+C:\Users\Utilizador\Desktop\aulas\Linguagem web 1\Projeto_final\Projeto_final\obj\Debug\Projeto_final.csproj.SuggestedBindingRedirects.cache
+C:\Users\Utilizador\Desktop\aulas\Linguagem web 1\Projeto_final\Projeto_final\obj\Debug\Projeto_final.csproj.CoreCompileInputs.cache
+C:\Users\Utilizador\Desktop\aulas\Linguagem web 1\Projeto_final\Projeto_final\obj\Debug\Projeto_final.exe
+C:\Users\Utilizador\Desktop\aulas\Linguagem web 1\Projeto_final\Projeto_final\obj\Debug\Projeto_final.pdb
