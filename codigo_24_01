@@ -1,0 +1,157 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProjetoLivro
+{
+    internal class Program
+    {
+        static int consultar_livro(string[,] vetor)
+        {
+            for(int i = 0; i< 3; i++)
+            {
+                if (vetor[i,0] == " ")
+                {
+                    return i;
+                }
+            }
+            return 0;
+        }
+        static void Main(string[] args)
+        {
+            int pos = 0, op, gen, taxa;
+
+            string[,] utilizador = new string[2,2];
+
+            string[,] livro = new string[3,8];
+
+            string consultar;
+           //int[] tempo_reserva= new int[2];
+
+
+            //Menu
+            do
+            {
+                Console.WriteLine("Escolha a operação que deseja efetuar? \n " +
+                "\n 1 =  registar livros \n 2 = atualizar livros " +
+                "\n 3 = consultar a informação de um livro a partir do código " +
+                "\n 4 = listar os livros pelo género.\n 5 = listar os livros pelo autor." +
+                "\n 6 = listar os utilizadores\n 7= comprar livros \n 8 = vender livros" +
+                "\n 9 = consultar stock \n 10 = consultar o total de livros vendidos e respetiva receita " +
+                "\n 0 = Sair");
+
+                op = Convert.ToInt32(Console.ReadLine());
+
+                switch (op)
+                {
+                    //feito
+                    //podemos adicionar para nao poderem colocar livros repetidos, pelo codigo
+                    case 1: 
+                            Console.WriteLine("Registar livro(codigo): ");
+                            pos = consultar_livro(livro);
+                            Console.WriteLine("Id do livro: ");
+                            livro[pos,0] = Convert.ToString(Console.ReadLine());
+
+                            Console.WriteLine("Titulo: ");
+                            livro[pos, 1] = Convert.ToString(Console.ReadLine());
+
+                            Console.WriteLine("Autor: ");
+                            livro[pos, 2] = Convert.ToString(Console.ReadLine());
+
+                            Console.WriteLine("Ano do livro: ");
+                            livro[pos, 3] = Convert.ToString(Console.ReadLine());
+
+                            Console.WriteLine("Genero: \n1 - Romance\n2 - Ciencia\n3 - Ensino");
+
+                            gen = Convert.ToInt32(Console.ReadLine());  
+                            switch (gen)
+                            {
+                                case 1: livro[0, 4] = "Romance"; break;
+                                case 2: livro[0, 4] = "Ciencia"; break;
+                                case 3: livro[0, 4] = "Ensino"; break;
+                            }
+
+                            Console.WriteLine("Preço: ");
+                            livro[pos,5] = Convert.ToString(Console.ReadLine());
+
+                            Console.WriteLine("Taxa( 1 - 6%/ 2 - 23%)");
+                            taxa = Convert.ToInt32(Console.ReadLine());
+
+                            switch (taxa)
+                            {
+                                case 1: livro[0, 6] = "Romance"; break;
+                                case 2: livro[0, 6] = "Ciencia"; break;
+                                case 3: livro[0, 6] = "Ensino"; break;
+                            }
+
+                        Console.WriteLine("Stock: ");
+                        livro[pos,7] = Convert.ToString(Console.ReadLine());   
+                        
+                            break;
+
+                    case 2: Console.WriteLine("atualizar livros");
+
+                        Console.WriteLine("Introduza o codigo do livro que deseja atualizar: ");
+
+
+                        break; 
+                    
+                    // feito
+                    case 3:
+                        Console.WriteLine("consultar a informação de um livro a partir do código");
+                        Console.WriteLine("Id do livro: ");
+                        consultar = Convert.ToString(Console.ReadLine());
+                        for(int j = 0; j < 3; j++)
+                        {
+                            if (livro[j,0] == consultar)
+                            {
+                                Console.WriteLine("Titulo do livro: {0}", livro[j,0]);
+                                Console.WriteLine("Autor do livro: {0}", livro[j,1]);
+                                Console.WriteLine("Ano do livro: {0}", livro[j, 2]);
+                            }
+                            Console.ReadKey();
+                        }
+                        break;
+
+                    case 4:
+                        Console.WriteLine("listar os livros pelo género.");
+                        break;
+
+                    case 5:
+                        int[] teste = new int[3];
+                        teste[0] = 4;
+                        Console.Write(teste[2] + " " + teste[1]);
+                        Console.WriteLine("listar os livros pelo autor.");
+                        break;
+
+                    case 6:
+                        Console.WriteLine("listar os utilizadores");
+                        Console.WriteLine("Introduza o seu Nome: ");
+                        Console.WriteLine("Introduza o id (Contribuinte ou telemovel): "); //contribuinte ou telemovel porque nao se repetem
+                        //id_util[] = Convert.ToInt32(Console.ReadLine());
+
+                        break;
+
+                    case 7:
+                        Console.WriteLine("comprar livros");
+                        break;
+
+                    case 8:
+                        Console.WriteLine("vender livros");
+                        break;
+
+                    case 9:
+                        Console.WriteLine("consultar stock");
+                        break;
+
+                    case 10: Console.WriteLine("consultar o total de livros vendidos e respetiva receita"); break;
+
+                    default: Console.WriteLine("Número inválido!"); break;
+                }
+            } while (op != 0);
+            Console.ReadKey();
+        }
+    }
+}
