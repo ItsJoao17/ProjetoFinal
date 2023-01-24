@@ -1,3 +1,4 @@
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace ProjetoLivro
 {
     internal class Program
     {
+
+        //funcao para percorrer o vetor dos livros para verificar qual é a ultima posicao cujo conteudo esta vazio
         static int consultar_livro(string[,] vetor)
         {
             for(int i = 0; i< 3; i++)
@@ -19,9 +22,74 @@ namespace ProjetoLivro
             }
             return 0;
         }
+
+        //buscar um determinado livro pelo codigo
+        static int buscar_livro(string codigo, string[,] vetor)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                if (vetor[i,0] == codigo)
+                {
+                    return i;
+                }
+            }
+            return 0;
+        }
+
+        //Registar dados de um livro
+
+        static string[,] registo (string[,] vetor, int local)
+        {
+            int gen;
+            int taxa;
+
+            Console.WriteLine("Id do livro: ");
+            vetor[local,0] = Convert.ToString(Console.ReadLine());
+
+            Console.WriteLine("Titulo: ");
+            vetor[local, 1] = Convert.ToString(Console.ReadLine());
+
+            Console.WriteLine("Autor: ");
+            vetor[local, 2] = Convert.ToString(Console.ReadLine());
+
+            Console.WriteLine("Ano do livro: ");
+            vetor[local, 3] = Convert.ToString(Console.ReadLine());
+
+            Console.WriteLine("Genero: \n1 - Romance\n2 - Ciencia\n3 - Ensino");
+
+            gen = Convert.ToInt32(Console.ReadLine());
+            switch (gen)
+            {
+                case 1: vetor[0, 4] = "Romance"; break;
+                case 2: vetor[0, 4] = "Ciencia"; break;
+                case 3: vetor[0, 4] = "Ensino"; break;
+            }
+
+            Console.WriteLine("Preço: ");
+            vetor[local, 5] = Convert.ToString(Console.ReadLine());
+
+            Console.WriteLine("Taxa( 1 - 6%/ 2 - 23%)");
+            taxa = Convert.ToInt32(Console.ReadLine());
+
+            switch (taxa)
+            {
+                case 1: vetor[0, 6] = "Romance"; break;
+                case 2: vetor[0, 6] = "Ciencia"; break;
+                case 3: vetor[0, 6] = "Ensino"; break;
+            }
+
+            Console.WriteLine("Stock: ");
+            vetor[local, 7] = Convert.ToString(Console.ReadLine());
+
+            return vetor;
+        }
+
+        //MAIN
         static void Main(string[] args)
         {
-            int pos = 0, op, gen, taxa;
+            string[,] utilizadorPassword = new string[2, 2];
+
+            int pos = 0, op;
 
             string[,] utilizador = new string[2,2];
 
@@ -46,63 +114,36 @@ namespace ProjetoLivro
 
                 switch (op)
                 {
-                    //feito
+                    
+                    //Adicionar novo livro
                     //podemos adicionar para nao poderem colocar livros repetidos, pelo codigo
-                    case 1: 
-                            Console.WriteLine("Registar livro(codigo): ");
-                            pos = consultar_livro(livro);
-                            Console.WriteLine("Id do livro: ");
-                            livro[pos,0] = Convert.ToString(Console.ReadLine());
+                    case 1:
+                            pos = consultar_livro(livro);// verificar onde a proxima posicao vazia para registo do livro
 
-                            Console.WriteLine("Titulo: ");
-                            livro[pos, 1] = Convert.ToString(Console.ReadLine());
-
-                            Console.WriteLine("Autor: ");
-                            livro[pos, 2] = Convert.ToString(Console.ReadLine());
-
-                            Console.WriteLine("Ano do livro: ");
-                            livro[pos, 3] = Convert.ToString(Console.ReadLine());
-
-                            Console.WriteLine("Genero: \n1 - Romance\n2 - Ciencia\n3 - Ensino");
-
-                            gen = Convert.ToInt32(Console.ReadLine());  
-                            switch (gen)
-                            {
-                                case 1: livro[0, 4] = "Romance"; break;
-                                case 2: livro[0, 4] = "Ciencia"; break;
-                                case 3: livro[0, 4] = "Ensino"; break;
-                            }
-
-                            Console.WriteLine("Preço: ");
-                            livro[pos,5] = Convert.ToString(Console.ReadLine());
-
-                            Console.WriteLine("Taxa( 1 - 6%/ 2 - 23%)");
-                            taxa = Convert.ToInt32(Console.ReadLine());
-
-                            switch (taxa)
-                            {
-                                case 1: livro[0, 6] = "Romance"; break;
-                                case 2: livro[0, 6] = "Ciencia"; break;
-                                case 3: livro[0, 6] = "Ensino"; break;
-                            }
-
-                        Console.WriteLine("Stock: ");
-                        livro[pos,7] = Convert.ToString(Console.ReadLine());   
+                            Console.WriteLine("Registar livro: ");
+                            registo(livro, pos);
                         
-                            break;
+                        break;
 
+                    //Atualizar livros
                     case 2: Console.WriteLine("atualizar livros");
 
                         Console.WriteLine("Introduza o codigo do livro que deseja atualizar: ");
+                        consultar = Convert.ToString(Console.ReadLine());
 
+                        pos = buscar_livro(consultar, livro);
+
+                        registo(livro, pos);
 
                         break; 
                     
-                    // feito
+                    // Consultar o livro pelo codigo
                     case 3:
-                        Console.WriteLine("consultar a informação de um livro a partir do código");
+                        Console.WriteLine("Consultar a informação de um livro a partir do código");
+
                         Console.WriteLine("Id do livro: ");
                         consultar = Convert.ToString(Console.ReadLine());
+
                         for(int j = 0; j < 3; j++)
                         {
                             if (livro[j,0] == consultar)
@@ -120,10 +161,6 @@ namespace ProjetoLivro
                         break;
 
                     case 5:
-                        int[] teste = new int[3];
-                        teste[0] = 4;
-                        Console.Write(teste[2] + " " + teste[1]);
-                        Console.WriteLine("listar os livros pelo autor.");
                         break;
 
                     case 6:
