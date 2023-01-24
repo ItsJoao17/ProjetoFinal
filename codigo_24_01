@@ -52,143 +52,242 @@ namespace ProjetoLivro
             Console.WriteLine("Autor: ");
             vetor[local, 2] = Convert.ToString(Console.ReadLine());
 
-            Console.WriteLine("Ano do livro: ");
+            Console.WriteLine("ISBN: ");
             vetor[local, 3] = Convert.ToString(Console.ReadLine());
+
+            Console.WriteLine("Ano do livro: ");
+            vetor[local, 4] = Convert.ToString(Console.ReadLine());
 
             Console.WriteLine("Genero: \n1 - Romance\n2 - Ciencia\n3 - Ensino");
 
             gen = Convert.ToInt32(Console.ReadLine());
             switch (gen)
             {
-                case 1: vetor[0, 4] = "Romance"; break;
-                case 2: vetor[0, 4] = "Ciencia"; break;
-                case 3: vetor[0, 4] = "Ensino"; break;
+                case 1: vetor[0, 5] = "Romance"; break;
+                case 2: vetor[0, 5] = "Ciencia"; break;
+                case 3: vetor[0, 5] = "Ensino"; break;
             }
 
             Console.WriteLine("Preço: ");
-            vetor[local, 5] = Convert.ToString(Console.ReadLine());
+            vetor[local, 6] = Convert.ToString(Console.ReadLine());
 
             Console.WriteLine("Taxa( 1 - 6%/ 2 - 23%)");
             taxa = Convert.ToInt32(Console.ReadLine());
 
             switch (taxa)
             {
-                case 1: vetor[0, 6] = "Romance"; break;
-                case 2: vetor[0, 6] = "Ciencia"; break;
-                case 3: vetor[0, 6] = "Ensino"; break;
+                case 1: vetor[0, 7] = "Romance"; break;
+                case 2: vetor[0, 7] = "Ciencia"; break;
+                case 3: vetor[0, 7] = "Ensino"; break;
             }
 
             Console.WriteLine("Stock: ");
-            vetor[local, 7] = Convert.ToString(Console.ReadLine());
+            vetor[local, 8] = Convert.ToString(Console.ReadLine());
 
             return vetor;
         }
 
-        //MAIN
+
+
+        //----------------MAIN------------------------
+
         static void Main(string[] args)
         {
-            string[,] utilizadorPassword = new string[2, 2];
+
+            //------------INICIAR UTILZADORES (1 DE CADA)-------------
+
+            string[,] utilizadorPassword = new string[10, 2];
+
+            for (int i = 0; i < 3; i++)
+            {
+                utilizadorPassword[i, 0] = Convert.ToString(i+1);
+                utilizadorPassword[i, 1] = Convert.ToString("12345");
+            }
+
+
+            //-------------------  LOGIN --------------------------
+            Console.WriteLine("Introduza o codigo de funcionario: ");
+            int user = Convert.ToInt32(Console.ReadLine());
 
             int pos = 0, op;
 
             string[,] utilizador = new string[2,2];
 
-            string[,] livro = new string[3,8];
+            string[,] livro = new string[3,9];
+
+            livro[0, 0] = "1"; livro[0, 1] = "Atum e meias"; livro[0, 2] = "Gato das Botas"; livro[0, 4] = "01279384"; livro[0, 3] = "2024"; livro[0, 5] = "Ensino"; livro[0, 6] = "1,50"; livro[0, 7] = "6"; livro[0, 8] = "10";
+            
 
             string consultar;
            //int[] tempo_reserva= new int[2];
 
 
-            //Menu
-            do
+            
+
+
+            //-------------------GERENTE------------------
+
+            if(user == 1)
             {
-                Console.WriteLine("Escolha a operação que deseja efetuar? \n " +
-                "\n 1 =  registar livros \n 2 = atualizar livros " +
-                "\n 3 = consultar a informação de um livro a partir do código " +
-                "\n 4 = listar os livros pelo género.\n 5 = listar os livros pelo autor." +
-                "\n 6 = listar os utilizadores\n 7= comprar livros \n 8 = vender livros" +
-                "\n 9 = consultar stock \n 10 = consultar o total de livros vendidos e respetiva receita " +
-                "\n 0 = Sair");
 
-                op = Convert.ToInt32(Console.ReadLine());
-
-                switch (op)
+                do
                 {
+                    // !!!!! WARNING ---- Menu
+
+                    op = Convert.ToInt32(Console.ReadLine());
+
+                    switch (op)
+                    {
+                        case 1:
+                            Console.WriteLine("listar os utilizadores: ");
+
+                            for (int i = 0; i < utilizadorPassword.GetLength(0); i++)
+                            {
+                                Console.WriteLine(utilizadorPassword[i, 0] + " " + utilizadorPassword[i, 1]);
+                            }
+                            break;
+
+                        case 2:
+                            Console.WriteLine("Criar utilizadores: ");
+
+                            for (int i = 0; i < utilizadorPassword.GetLength(0); i++)
+                            {
+
+                                if(utilizadorPassword[i, 0] == null)
+                                {
+                                    Console.WriteLine("Introduza o número de funcionario");
+                                    utilizadorPassword[i, 0] = Convert.ToString(Console.ReadLine());
+                                    Console.WriteLine("Introduza a password");
+                                    utilizadorPassword[i, 1] = Convert.ToString(Console.ReadLine());
+                                    break;
+                                }
+                            }
+                            break;
+                    }
+                } while(op != 0);
+            }
+
+            //----------------- REPOSITOR -----------------
+
+            else if(user == 2)
+            {
+                do
+                {
+                    // !!!!! WARNING ---- Menu
+
+                    op = Convert.ToInt32(Console.ReadLine());
+
                     
-                    //Adicionar novo livro
-                    //podemos adicionar para nao poderem colocar livros repetidos, pelo codigo
-                    case 1:
+                    switch (op)
+                    {
+                        //Adicionar novo livro
+                        //podemos adicionar para nao poderem colocar livros repetidos, pelo codigo
+                        case 1:
                             pos = consultar_livro(livro);// verificar onde a proxima posicao vazia para registo do livro
 
                             Console.WriteLine("Registar livro: ");
                             registo(livro, pos);
-                        
-                        break;
 
-                    //Atualizar livros
-                    case 2: Console.WriteLine("atualizar livros");
+                            break;
 
-                        Console.WriteLine("Introduza o codigo do livro que deseja atualizar: ");
-                        consultar = Convert.ToString(Console.ReadLine());
+                        //Atualizar livros
+                        case 2:
+                            Console.WriteLine("atualizar livros");
 
-                        pos = buscar_livro(consultar, livro);
+                            Console.WriteLine("Introduza o codigo do livro que deseja atualizar: ");
+                            consultar = Convert.ToString(Console.ReadLine());
 
-                        registo(livro, pos);
+                            pos = buscar_livro(consultar, livro);
 
-                        break; 
-                    
-                    // Consultar o livro pelo codigo
-                    case 3:
-                        Console.WriteLine("Consultar a informação de um livro a partir do código");
+                            registo(livro, pos);
 
-                        Console.WriteLine("Id do livro: ");
-                        consultar = Convert.ToString(Console.ReadLine());
+                            break;
 
-                        for(int j = 0; j < 3; j++)
-                        {
-                            if (livro[j,0] == consultar)
+                        // Consultar o livro pelo codigo
+                        case 3:
+                            Console.WriteLine("Consultar a informação de um livro a partir do código");
+
+                            Console.WriteLine("Id do livro: ");
+                            consultar = Convert.ToString(Console.ReadLine());
+
+                            for (int j = 0; j < 3; j++)
                             {
-                                Console.WriteLine("Titulo do livro: {0}", livro[j,0]);
-                                Console.WriteLine("Autor do livro: {0}", livro[j,1]);
-                                Console.WriteLine("Ano do livro: {0}", livro[j, 2]);
+                                if (livro[j, 0] == consultar)
+                                {
+                                    Console.WriteLine("Titulo: {0}", livro[j, 1]);
+                                    Console.WriteLine("Autor: {0}", livro[j, 2]);
+                                    Console.WriteLine("Ano: {0}", livro[j, 3]);
+                                    Console.WriteLine("ISBN: {0}", livro[j, 4]);
+                                    Console.WriteLine("Genero: {0}", livro[j, 5]);
+                                    Console.WriteLine("Preco: {0}", livro[j, 6]);
+                                    Console.WriteLine("Taxa: {0}", livro[j, 7]);
+                                    Console.WriteLine("Stock: {0}", livro[j, 8]);
+                                }
+                                Console.ReadKey();
                             }
-                            Console.ReadKey();
-                        }
-                        break;
+                            break;
 
-                    case 4:
-                        Console.WriteLine("listar os livros pelo género.");
-                        break;
+                        case 4:
+                            Console.WriteLine("Listar os livros pelo género.");
 
-                    case 5:
-                        break;
+                            Console.WriteLine("Genero: ");
+                            consultar = Convert.ToString(Console.ReadLine());
 
-                    case 6:
-                        Console.WriteLine("listar os utilizadores");
-                        Console.WriteLine("Introduza o seu Nome: ");
-                        Console.WriteLine("Introduza o id (Contribuinte ou telemovel): "); //contribuinte ou telemovel porque nao se repetem
-                        //id_util[] = Convert.ToInt32(Console.ReadLine());
+                            for (int j = 0; j < 3; j++)
+                            {
+                                if (livro[j, 5] == consultar)
+                                {
+                                    Console.WriteLine("Titulo: {0}", livro[j, 1]);
+                                    Console.WriteLine("Autor: {0}", livro[j, 2]);
+                                    Console.WriteLine("Ano: {0}", livro[j, 3]);
+                                    Console.WriteLine("ISBN: {0}", livro[j, 4]);
+                                    Console.WriteLine("Genero: {0}", livro[j, 5]);
+                                    Console.WriteLine("Preco: {0}", livro[j, 6]);
+                                    Console.WriteLine("Taxa: {0}", livro[j, 7]);
+                                    Console.WriteLine("Stock: {0}", livro[j, 8]);
+                                }
+                                Console.ReadKey();
+                            }
+                            break;
 
-                        break;
+                        case 5:
+                            Console.WriteLine("Listar os livros pelo género.");
 
-                    case 7:
-                        Console.WriteLine("comprar livros");
-                        break;
+                            Console.WriteLine("Genero: ");
+                            consultar = Convert.ToString(Console.ReadLine());
 
-                    case 8:
-                        Console.WriteLine("vender livros");
-                        break;
+                            for (int j = 0; j < 3; j++)
+                            {
+                                if (livro[j, 2] == consultar)
+                                {
+                                    Console.WriteLine("Titulo: {0}", livro[j, 1]);
+                                    Console.WriteLine("Autor: {0}", livro[j, 2]);
+                                    Console.WriteLine("Ano: {0}", livro[j, 3]);
+                                    Console.WriteLine("ISBN: {0}", livro[j, 4]);
+                                    Console.WriteLine("Genero: {0}", livro[j, 5]);
+                                    Console.WriteLine("Preco: {0}", livro[j, 6]);
+                                    Console.WriteLine("Taxa: {0}", livro[j, 7]);
+                                    Console.WriteLine("Stock: {0}", livro[j, 8]);
+                                }
+                                Console.ReadKey();
+                            }
+                            break;
+                    }
+                } while (op != 0);
+            }
+            
+            //-------------------- CAIXA --------------
+            else
+            {
+                op = Convert.ToInt32(Console.ReadLine());
+                switch (op)
+                {
 
-                    case 9:
-                        Console.WriteLine("consultar stock");
-                        break;
-
-                    case 10: Console.WriteLine("consultar o total de livros vendidos e respetiva receita"); break;
-
-                    default: Console.WriteLine("Número inválido!"); break;
                 }
-            } while (op != 0);
+            }
             Console.ReadKey();
         }
     }
 }
+
+
