@@ -277,17 +277,21 @@ namespace ProjetoLivro
             }
             
             //-------------------- CAIXA --------------
-            else
+            else if(user == 3)
             {
+
                 op = Convert.ToInt32(Console.ReadLine());
                 switch (op)
                 {
 
                 }
             }
+
+            else
+            {
+                Console.WriteLine("Utilizador inexistente. Fale com o seu gerente caso o problema persista.");
+            }
             Console.ReadKey();
         }
     }
 }
-
-
