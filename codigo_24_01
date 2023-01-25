@@ -13,9 +13,9 @@ namespace ProjetoLivro
         //funcao para percorrer o vetor dos livros para verificar qual é a ultima posicao cujo conteudo esta vazio
         static int consultar_livro(string[,] vetor)
         {
-            for(int i = 0; i< 3; i++)
+            for (int i = 0; i < 3; i++)
             {
-                if (vetor[i,0] == " ")
+                if (vetor[i, 0] == " ")
                 {
                     return i;
                 }
@@ -28,7 +28,7 @@ namespace ProjetoLivro
         {
             for (int i = 0; i < 3; i++)
             {
-                if (vetor[i,0] == codigo)
+                if (vetor[i, 0] == codigo)
                 {
                     return i;
                 }
@@ -38,13 +38,13 @@ namespace ProjetoLivro
 
         //Registar dados de um livro
 
-        static string[,] registo (string[,] vetor, int local)
+        static string[,] registo(string[,] vetor, int local)
         {
             int gen;
             int taxa;
 
             Console.WriteLine("Id do livro: ");
-            vetor[local,0] = Convert.ToString(Console.ReadLine());
+            vetor[local, 0] = Convert.ToString(Console.ReadLine());
 
             Console.WriteLine("Titulo: ");
             vetor[local, 1] = Convert.ToString(Console.ReadLine());
@@ -76,9 +76,8 @@ namespace ProjetoLivro
 
             switch (taxa)
             {
-                case 1: vetor[0, 7] = "Romance"; break;
-                case 2: vetor[0, 7] = "Ciencia"; break;
-                case 3: vetor[0, 7] = "Ensino"; break;
+                case 1: vetor[0, 7] = "6%"; break;
+                case 2: vetor[0, 7] = "23%"; break;
             }
 
             Console.WriteLine("Stock: ");
@@ -94,90 +93,151 @@ namespace ProjetoLivro
         static void Main(string[] args)
         {
 
-            //------------INICIAR UTILZADORES (1 DE CADA)-------------
+            //------------INICIAR UTILIZADORES (1 DE CADA)-------------
 
-            string[,] utilizadorPassword = new string[10, 2];
+            string[,,] utilizadorPassword = new string[10, 10, 10];
 
-            for (int i = 0; i < 3; i++)
-            {
-                utilizadorPassword[i, 0] = Convert.ToString(i+1);
-                utilizadorPassword[i, 1] = Convert.ToString("12345");
-            }
+            utilizadorPassword[0, 0, 0] = "1";
+
+            utilizadorPassword[0, 1, 0] = "Francisco";
+
+            utilizadorPassword[0, 0, 1] = "12345";
+
 
 
             //-------------------  LOGIN --------------------------
-            Console.WriteLine("Introduza o codigo de funcionario: ");
-            int user = Convert.ToInt32(Console.ReadLine());
+            int user = 0;
+            int f = 0;
+            void Login()
+            {
+                Console.WriteLine("LOGIN \n");
+                Console.WriteLine("Nome: ");
+                string nome = Console.ReadLine();
+                Console.WriteLine("\nPassword: ");
+                string password = Console.ReadLine();
+
+                for (int i = 0; i < utilizadorPassword.GetLength(0); i++)
+                {
+                    if (nome == utilizadorPassword[0, i, 0] && password == utilizadorPassword[0, 0, i])
+                    {
+                        Console.WriteLine(i);
+
+                        f = i - 1;
+                        user = Convert.ToInt32(utilizadorPassword[f, 0, 0]); //  <-- não está a funcionar, o login está a funcionar todo menos esta parte ao tentar criar outros funcionários
+
+                        if (user == 1)
+                        {
+                            Console.WriteLine("Bem-Vindo Gerente " + utilizadorPassword[0, i, 0] + "!");
+                        }
+                        if (user == 2)
+                        {
+                            Console.WriteLine("Bem-Vindo Repositor" + utilizadorPassword[0, i, 0] + "!");
+                        }
+                        if (user == 3)
+                        {
+                            Console.WriteLine("Bem-Vindo Caixa" + utilizadorPassword[0, i, 0] + "!");
+                        }
+
+                    }
+                }
+
+
+
+            }
+
+            Login();
 
             int pos = 0, op;
 
-            string[,] utilizador = new string[2,2];
+            string[,] utilizador = new string[2, 2];
 
-            string[,] livro = new string[3,9];
+            string[,] livro = new string[3, 9];
 
             livro[0, 0] = "1"; livro[0, 1] = "Atum e meias"; livro[0, 2] = "Gato das Botas"; livro[0, 4] = "01279384"; livro[0, 3] = "2024"; livro[0, 5] = "Ensino"; livro[0, 6] = "1,50"; livro[0, 7] = "6"; livro[0, 8] = "10";
-            
+
 
             string consultar;
-           //int[] tempo_reserva= new int[2];
+            //int[] tempo_reserva= new int[2];
 
 
-            
+
 
 
             //-------------------GERENTE------------------
 
-            if(user == 1)
+            if (user == 1)
             {
-
+                Console.WriteLine(user);
                 do
                 {
                     // !!!!! WARNING ---- Menu
+                    Console.WriteLine("Escolha uma das opções: ");
+
+                    Console.WriteLine("\n1 - Listar os utilizadores;\n2 - Criar utilizadores; \n3 - Sair para o Login. ");
+
 
                     op = Convert.ToInt32(Console.ReadLine());
 
                     switch (op)
                     {
+
                         case 1:
-                            Console.WriteLine("listar os utilizadores: ");
+                            Console.WriteLine("\nListar os utilizadores: ");
 
                             for (int i = 0; i < utilizadorPassword.GetLength(0); i++)
                             {
-                                Console.WriteLine(utilizadorPassword[i, 0] + " " + utilizadorPassword[i, 1]);
+                                Console.WriteLine(utilizadorPassword[i, 0, 0] + " " + utilizadorPassword[i, 1, 0] + " " + utilizadorPassword[i, 0, 1]);
                             }
                             break;
 
                         case 2:
-                            Console.WriteLine("Criar utilizadores: ");
+                            Console.WriteLine("\nCriar utilizadores: ");
 
                             for (int i = 0; i < utilizadorPassword.GetLength(0); i++)
                             {
 
-                                if(utilizadorPassword[i, 0] == null)
+                                if (utilizadorPassword[i, 0, 0] == null)
                                 {
-                                    Console.WriteLine("Introduza o número de funcionario");
-                                    utilizadorPassword[i, 0] = Convert.ToString(Console.ReadLine());
-                                    Console.WriteLine("Introduza a password");
-                                    utilizadorPassword[i, 1] = Convert.ToString(Console.ReadLine());
+                                    Console.WriteLine("Introduza o tipo de funcionario (1 - Gerente, 2 - Repositor, 3 - Caixa)");
+                                    utilizadorPassword[i, 0, 0] = Convert.ToString(Console.ReadLine());
+                                    if (Convert.ToInt32(utilizadorPassword[i,0,0]) > 3)
+                                    {
+                                        Console.WriteLine("O código do tipo de funcionário não pode ser maior que 3!");
+                                        utilizadorPassword[i, 0, 0] = null;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Introduza o nome");
+                                        utilizadorPassword[i, 1, 0] = Convert.ToString(Console.ReadLine());
+                                        Console.WriteLine("Introduza a password");
+                                        utilizadorPassword[i, 0, 1] = Convert.ToString(Console.ReadLine());
+                                        
+                                    }
                                     break;
                                 }
                             }
                             break;
+
+                        case 3:
+                            Login();
+                            break;
                     }
-                } while(op != 0);
+                } while (op != 0);
             }
 
             //----------------- REPOSITOR -----------------
 
-            else if(user == 2)
+            else if (user == 2)
             {
                 do
                 {
                     // !!!!! WARNING ---- Menu
+                    Console.WriteLine("\nEscolha uma das opções: ");
 
+                    Console.WriteLine("\n1 - Registar livros;\n2 - Atualizar livros; 3 - Consultar livros por código; 4 - Listar livros por gênero");
                     op = Convert.ToInt32(Console.ReadLine());
 
-                    
+
                     switch (op)
                     {
                         //Adicionar novo livro
@@ -192,9 +252,9 @@ namespace ProjetoLivro
 
                         //Atualizar livros
                         case 2:
-                            Console.WriteLine("atualizar livros");
+                            Console.WriteLine("Atualizar livro:");
 
-                            Console.WriteLine("Introduza o codigo do livro que deseja atualizar: ");
+                            Console.WriteLine("Introduza o código do livro que deseja atualizar: ");
                             consultar = Convert.ToString(Console.ReadLine());
 
                             pos = buscar_livro(consultar, livro);
@@ -228,9 +288,9 @@ namespace ProjetoLivro
                             break;
 
                         case 4:
-                            Console.WriteLine("Listar os livros pelo género.");
+                            Console.WriteLine("Listar os livros pelo gênero.");
 
-                            Console.WriteLine("Genero: ");
+                            Console.WriteLine("Gênero: ");
                             consultar = Convert.ToString(Console.ReadLine());
 
                             for (int j = 0; j < 3; j++)
@@ -251,9 +311,9 @@ namespace ProjetoLivro
                             break;
 
                         case 5:
-                            Console.WriteLine("Listar os livros pelo género.");
+                            Console.WriteLine("Listar os livros pelo autor.");
 
-                            Console.WriteLine("Genero: ");
+                            Console.WriteLine("Autor: ");
                             consultar = Convert.ToString(Console.ReadLine());
 
                             for (int j = 0; j < 3; j++)
@@ -275,9 +335,9 @@ namespace ProjetoLivro
                     }
                 } while (op != 0);
             }
-            
+
             //-------------------- CAIXA --------------
-            else if(user == 3)
+            else if (user == 3)
             {
 
                 op = Convert.ToInt32(Console.ReadLine());
